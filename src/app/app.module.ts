@@ -8,12 +8,19 @@ import { AppComponent } from './app.component';
 import { ROUTING } from "./app.routing";
 import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
+import { ProfilesComponent } from './profiles/profiles.component';
+import { environment } from "environments/environment";
+import { UserLevelService } from "./userlevel.service";
+import { UserlevelComponent } from './userlevel/userlevel.component';
+
 
 @NgModule({
     declarations: [
         AppComponent,
         AboutComponent,
-        HomeComponent
+        HomeComponent,
+        ProfilesComponent,
+        UserlevelComponent
     ],
     imports: [
         BrowserAnimationsModule,
@@ -23,7 +30,10 @@ import { AboutComponent } from "./about/about.component";
         ClarityModule,
         ROUTING
     ],
-    providers: [],
+    providers: [
+        { provide: 'API_URL', useValue: environment.apiUrl },
+        UserLevelService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

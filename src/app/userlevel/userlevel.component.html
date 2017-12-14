@@ -1,0 +1,72 @@
+<button class="btn btn-primary" (click)="open = true">เพิ่มข้อมูล</button>
+<clr-datagrid>
+
+    <clr-dg-column [clrDgField]="'ul_id'">
+        <ng-container *clrDgHideableColumn="{hidden: false}">UserID </ng-container>
+    </clr-dg-column>
+
+    <clr-dg-column [clrDgField]="'ul_name'">Name</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let user of alluserlevel">
+        <clr-dg-action-overflow>
+            <button class="action-item" (click)="ShowModal(user)">แก้ไขข้อมูล</button>
+            <button class="action-item" (click)="delData(user)">ลบข้อมูล</button>
+        </clr-dg-action-overflow>
+
+        <clr-dg-cell>{{user.ul_id}}</clr-dg-cell>
+        <clr-dg-cell>{{user.ul_name}}</clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} คน
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+    </clr-dg-footer>
+
+    <!-- <clr-dg-footer>{{alluserlevel.length}} users</clr-dg-footer> -->
+
+</clr-datagrid>
+<clr-modal [(clrModalOpen)]="open">
+    <h3 class="modal-title">เพิ่มสิทธิ์การใช้งาน</h3>
+    <div class="modal-body">
+        <form>
+            <section class="form-block">
+                <label>สิทธิ์การใช้งาน</label>
+                <div class="form-group">
+                    <label for="aForm_1">รหัสสิทธิ์</label>
+                    <input type="text" [(ngModel)]="UserLevelId" name="UserLevelId" placeholder="ระบุรหัสสิทธิ์" size="45">
+                </div>
+                <div class="form-group">
+                    <label for="aForm_1">ชื่อสิทธิ์การใช้งาน</label>
+                    <input type="text" [(ngModel)]="UserLevelName" name="UserLevelName" placeholder="ระบุชื่อสิทธิ์การใช้งาน" size="45">
+                </div>
+            </section>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="edit = false">ยกเลิก</button>
+        <button type="button" class="btn btn-primary" (click)="addData()">ตกลง</button>
+    </div>
+</clr-modal>
+<clr-modal [(clrModalOpen)]="edit">
+    <h3 class="modal-title">แก้ไขสิทธิ์การใช้งาน</h3>
+    <div class="modal-body">
+        <form>
+            <section class="form-block">
+                <label>สิทธิ์การใช้งาน</label>
+                <div class="form-group">
+                    <label for="aForm_1">รหัสสิทธิ์</label>
+                    <input type="text" [(ngModel)]="UserLevelId" name="UserLevelId" placeholder="ระบุรหัสสิทธิ์" size="45">
+                </div>
+                <div class="form-group">
+                    <label for="aForm_1">ชื่อสิทธิ์การใช้งาน</label>
+                    <input type="text" [(ngModel)]="UserLevelName" name="UserLevelName" placeholder="ระบุชื่อสิทธิ์การใช้งาน" size="45">
+                </div>
+            </section>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="edit = false">ยกเลิก</button>
+        <button type="button" class="btn btn-primary" (click)="editData()">ตกลง</button>
+    </div>
+</clr-modal>
